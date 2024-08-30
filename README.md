@@ -1,1 +1,1 @@
-# ExampleMvcProject
+Projekt strony internetowej wykonanej w ASP.NET MVC, wykorzystano EF. Strona umożliwia przeglądanie książek, audiobooków, piosenek, filmów. Zastosowano CRUD dla edycji elementów, LINQ dla np. wyszukiwania elementów.
