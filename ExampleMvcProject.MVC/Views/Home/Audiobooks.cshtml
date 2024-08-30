@@ -1,0 +1,56 @@
+﻿@model List<ExampleMvcProject.MVC.Entities.Audiobook>
+
+<p>Aktualne audiobooki na sprzedaż</p>
+
+<!-- Dodanie CSS w sekcji <style> lub w zewnętrznym pliku CSS -->
+<style>
+    .card {
+        position: relative; /* Karta musi być relative, aby przycisk mógł być pozycjonowany względem niej */
+    }
+
+    .card-body {
+        padding-bottom: 50px; /* Zwiększony padding na dole, aby zrobić miejsce dla przycisku */
+    }
+
+    .btn-primary {
+        position: absolute; /* Pozycjonowanie absolutne względem karty */
+        bottom: 10px; /* Ustawienie stałej odległości 10px od dolnej krawędzi */
+        left: 50%;
+        transform: translateX(-50%); /* Wycentrowanie przycisku poziomo */
+    }
+
+    .card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Cień na hover */
+        transform: scale(1.05); /* Delikatne powiększenie */
+        transition: all 0.3s ease-in-out; /* Płynne przejście */
+    }
+
+    .card-body h5, .card-body p {
+        color: black; /* Ustawienie koloru tekstu na czarny */
+    }
+</style>
+
+<div class="container text-center">
+    <div class="row g-2">
+        @foreach (var item in Model)
+        {
+            <div class="col-6 col-md-4">
+                <div class="p-3">
+                    <!-- Użyj linka jako wrappera dla karty -->
+                    <a asp-controller="Audiobooks" asp-action="Details" asp-route-id="@item.Id" class="card-link" style="text-decoration: none;">
+                        <div class="card" style="width: 18rem; height: 45rem;">
+                            <img src="@item.ImagePath" class="card-img-top" alt="@item.Title">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Title</h5>
+                                <p class="card-text">@item.Author</p>
+                                <p class="card-text">@item.Description</p>
+                                <!-- Link do dodawania do koszyka, niezależny od głównego linka -->
+                                <a asp-controller="Basket" asp-action="AddElementToBasket" asp-route-ElementId="@item.Id" asp-route-MediaType="Audiobook" class="btn btn-primary">Dodaj do koszyka</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

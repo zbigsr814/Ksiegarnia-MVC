@@ -1,0 +1,77 @@
+﻿@model List<ExampleMvcProject.MVC.Entities.Music>
+
+
+<!-- Dodanie CSS w sekcji <style> lub w zewnętrznym pliku CSS -->
+<style>
+    .card {
+        position: relative; /* Karta musi być relative, aby przycisk mógł być pozycjonowany względem niej */
+    }
+
+    .card-body {
+        padding-bottom: 50px; /* Zwiększony padding na dole, aby zrobić miejsce dla przycisku */
+    }
+
+    .btn-primary {
+        position: absolute; /* Pozycjonowanie absolutne względem karty */
+        bottom: 10px; /* Ustawienie stałej odległości 10px od dolnej krawędzi */
+        left: 50%;
+        transform: translateX(-50%); /* Wycentrowanie przycisku poziomo */
+    }
+
+    .card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Cień na hover */
+        transform: scale(1.05); /* Delikatne powiększenie */
+        transition: all 0.3s ease-in-out; /* Płynne przejście */
+    }
+
+    .card-body h5, .card-body p {
+        color: black; /* Ustawienie koloru tekstu na czarny */
+        text-decoration: none;
+    }
+</style>
+
+<div>
+
+
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <p class="mb-0">Sortowanie tytułów:</p>
+            </div>
+            <div class="col-auto">
+
+                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownBooks" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @((string)TempData["sorting"] == "normal" ? "Od A do Z" : "Od Z do A")
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownBooks">
+                <li><a class="dropdown-item" asp-controller="Home" asp-action="Musics" asp-route-musicType="@TempData["musicType"]" asp-route-sorting="normal">Od A do Z</a></li>
+                <li><a class="dropdown-item" asp-controller="Home" asp-action="Musics" asp-route-musicType="@TempData["musicType"]" asp-route-sorting="desc">Od Z do A</a></li>
+                    </ul>
+
+            </div>
+        </div>
+            
+        <br/>
+
+    @foreach (var item in Model)
+    {
+        <div class="card mb-2" style="max-height: 130px;">
+            <a asp-controller="Musics" asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none;">
+                <div class="row g-0">
+                    <div class="col-md-4" style="max-width: 200px;">
+                        <img src="@item.ImagePath" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Title </h5>
+                            <p class="card-text">@item.Description</p>
+                            <p class="card-text"><small class="text-body-secondary">@item.MusicType</small></p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </a>
+            <a asp-controller="Basket" asp-action="AddElementToBasket" asp-route-ElementId="@item.Id" asp-route-MediaType="Music" class="btn btn-primary">Dodaj do koszyka</a>
+        </div>
+    }
+
+</div>

@@ -1,0 +1,142 @@
+﻿@{
+    var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
+    var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ExampleMvcProject.MVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ExampleMvcProject.MVC.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Księgarnia</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Pierwsze poziome menu -->
+                <nav class="navbar bg-body-tertiary">
+                    <div class="container-fluid">
+                        <form class="d-flex" role="search" method="get" asp-controller="Home" asp-action="Search">
+                            <input class="form-control me-2" name="searchingText" type="search" placeholder="Search" aria-label="Search"/>
+                            <button class="btn btn-outline-success" type="submit">Szukaj</button>
+                        </form>
+                    </div>
+                </nav>
+
+                <!-- Drugie poziome menu -->
+                <div class="navbar-collapse collapse mt-2">
+                    <!-- Dodana klasa `mt-2` dla odstępu między menu -->
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark @(currentAction == "Index" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+
+                        <!-- Książki z dropdownem -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark @(currentAction == "Books" ? "active" : "")" href="#" id="navbarDropdownBooks" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Książki
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownBooks">
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Books">Fantasy</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Books">Sci-Fi</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Books">Historia</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Books">Wszystkie książki</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark @(currentAction == "Audiobooks" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Audiobooks">Audiobooki</a>
+                        </li>
+
+                        <!-- Muzyka z dropdownem -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark @(currentAction == "Musics" ? "active" : "")" href="#" id="navbarDropdownMusic" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Muzyka
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMusic">
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Musics" asp-route-sorting="@TempData["sorting"]" asp-route-MusicType="Rap">Rap</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Musics" asp-route-sorting="@TempData["sorting"]" asp-route-MusicType="Rock">Rock</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Musics" asp-route-sorting="@TempData["sorting"]" asp-route-MusicType="Grunge">Grunge</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Musics" asp-route-sorting="@TempData["sorting"]" asp-route-MusicType="Metal">Metal</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Musics" asp-route-sorting="@TempData["sorting"]" asp-route-MusicType="Hip-Hop">Hip-Hop</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Musics" asp-route-sorting="@TempData["sorting"]" asp-route-MusicType="Electronic">Electronic</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Musics" asp-route-sorting="@TempData["sorting"]" asp-route-MusicType="Alternative">Alternative</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Musics" asp-route-sorting="@TempData["sorting"]" asp-route-MusicType="All">Wszystkie utwory</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Filmy z dropdownem -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark @(currentAction == "Films" ? "active" : "")" href="#" id="navbarDropdownFilm" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Filmy
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMusic">
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="Romans">Romans</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="Dramat">Dramat</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="Horror">Horror</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="Akcja">Akcja</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="Sci-Fi">Sci-Fi</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="Thriller">Thriller</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="Komedia">Komedia</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="Wojenny">Wojenny</a></li>
+                                <li><hr class="dropdown-divider"></li>                                                                                   
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="All">Wszystkie filmy</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+
+
+                <!-- Trzecie poziome menu -->
+                <div class="navbar-collapse collapse mt-2">
+                    <!-- Dodana klasa `mt-2` dla odstępu między menu -->
+                    <ul class="navbar-nav flex-grow-2">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark @(currentAction == "Show" ? "active" : "")" asp-area="" asp-controller="Basket" asp-action="Show">
+                                Koszyk @ViewBag.variables["basketCount"]
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark @(currentAction == "CleanBasket" ? "active" : "")" asp-area="" asp-controller="Basket" asp-action="CleanBasket">Wyczyść koszyk</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Księgarnia - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

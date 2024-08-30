@@ -1,0 +1,99 @@
+﻿@model ExampleMvcProject.MVC.Models.BasketAnyElements
+
+<p>Ilość elementów w koszyku: @ViewBag.variables["basketCount"]</p>
+
+@foreach (var item in Model.Books)
+{
+
+    <div class="card mb-2" style="height: 18rem;">
+        <a asp-controller="Home" asp-action="Index" style="text-decoration: none;">
+            <div class="row g-0">
+                <div class="col-md-4" style="max-width: 200px;">
+                    <img src="@item.ImagePath" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title </h5>
+                        <p class="card-text">@item.Description</p>
+                    </div>
+
+                </div>
+            </div>
+        </a>
+        @* <a asp-controller="Basket" asp-action="AddElementToBasket" asp-route-ElementId="@item.Id" asp-route-MediaType="Music" class="btn btn-primary">Dodaj do koszyka</a> *@
+    </div>
+}
+
+@foreach (var item in Model.Audiobooks)
+{
+
+    <div class="card mb-2" style="max-height: 18rem;">
+        <a asp-controller="Home" asp-action="Index" style="text-decoration: none;">
+            <div class="row g-0">
+                <div class="col-md-4" style="max-width: 200px;">
+                    <img src="@item.ImagePath" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title </h5>
+                        <p class="card-text">@item.Description</p>
+                    </div>
+
+                </div>
+            </div>
+        </a>
+        @* <a asp-controller="Basket" asp-action="AddElementToBasket" asp-route-ElementId="@item.Id" asp-route-MediaType="Music" class="btn btn-primary">Dodaj do koszyka</a> *@
+    </div>
+}
+
+@foreach (var item in Model.Musics)
+{
+
+    <div class="card mb-2" style="max-height: 130px;">
+        <a asp-controller="Home" asp-action="Index" style="text-decoration: none;">
+            <div class="row g-0">
+                <div class="col-md-4" style="max-width: 200px;">
+                    <img src="@item.ImagePath" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title </h5>
+                        <p class="card-text">@item.Description</p>
+
+                        <div class="container text-start">
+                            <div class="row align-items-start">
+                            </div>
+                        </div>
+
+                        
+                        
+                    </div>
+
+                </div>
+            </div>
+        </a>
+        @* <a asp-controller="Basket" asp-action="AddElementToBasket" asp-route-ElementId="@item.Id" asp-route-MediaType="Music" class="btn btn-primary">Dodaj do koszyka</a> *@
+    </div>
+}
+
+@foreach (var item in Model.Films)
+{
+
+    <div class="card mb-2" style="max-height: 130px;">
+        <a asp-controller="Home" asp-action="Index" style="text-decoration: none;">
+            <div class="row g-0">
+                <div class="col-md-4" style="max-width: 200px;">
+                    <img src="@item.ImagePath" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title </h5>
+                        <p class="card-text">@item.Description</p>
+                    </div>
+
+                </div>
+            </div>
+        </a>
+        @* <a asp-controller="Basket" asp-action="AddElementToBasket" asp-route-ElementId="@item.Id" asp-route-MediaType="Music" class="btn btn-primary">Dodaj do koszyka</a> *@
+    </div>
+}

@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		body {
+			background-image: url('/images/backgrounds/main-background.jpg');
+			background-color: #331177; /* Białe tło */
+			padding: 20px; /* Odstępy wokół treści */
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+	</style>
+</head>
+<body>
+
+    <div class="main-section">
+        <h1>Promocja trwa!</h1>
+        <p>Kup dwie książki, trzecią dostaniesz gratis!!!</p>
+        <p>Nie zwlekaj, oferta kończy się za:</p>
+        <div id="countdown" style="font-size: 2rem; font-weight: bold;"></div>
+    </div>
+
+
+    <style>
+        .main-section {
+            text-align: center; /* Wyśrodkowuje tekst poziomo */
+            padding: 20px;
+            color: white;
+            margin: 100px;
+        }
+    </style>
+
+    <script>
+        // Funkcja do odliczania czasu od 12 godzin
+        function startCountdown(duration) {
+            let timer = duration, hours, minutes, seconds;
+            setInterval(function () {
+                hours = Math.floor(timer / 3600);            // Liczba pełnych godzin
+                minutes = Math.floor((timer % 3600) / 60);   // Liczba minut po odjęciu godzin
+                seconds = timer % 60;                        // Pozostałe sekundy
+
+                // Dodanie zera przed jednocyfrowymi wartościami
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                // Aktualizacja widoku licznika
+                document.getElementById('countdown').textContent = hours + ":" + minutes + ":" + seconds;
+
+                // Zmniejszanie licznika co sekundę
+                if (--timer < 0) {
+                    timer = 0; // Zatrzymuje licznik na 0, kiedy dojdzie do końca
+                }
+            }, 1000);  // Co sekundę (1000ms) zmniejsza czas
+        }
+
+        // Ustawiamy czas startowy na 12 godzin (12 * 3600 sekund)
+        const twelveHoursInSeconds = 12 * 3600; // 43200 sekund = 12 godzin
+
+        // Start licznika
+        window.onload = function () {
+            startCountdown(twelveHoursInSeconds);
+        };
+    </script>
+
+</body>
+</html>
