@@ -2,6 +2,15 @@
 
 <p>Ilość elementów w koszyku: @ViewBag.variables["basketCount"]</p>
 
+@if (Model.Books.Any())
+{
+    <div class="card mb-2" style="background-color: #bbbbbb;">
+        <div class="card-body">
+            Książki
+        </div>
+    </div>
+}
+
 @foreach (var item in Model.Books)
 {
 
@@ -24,6 +33,15 @@
     </div>
 }
 
+@if (Model.Audiobooks.Any())
+{
+    <div class="card mb-2" style="background-color: #bbbbbb;">
+        <div class="card-body">
+            Audiobooki
+        </div>
+    </div>
+}
+
 @foreach (var item in Model.Audiobooks)
 {
 
@@ -43,6 +61,15 @@
             </div>
         </a>
         @* <a asp-controller="Basket" asp-action="AddElementToBasket" asp-route-ElementId="@item.Id" asp-route-MediaType="Music" class="btn btn-primary">Dodaj do koszyka</a> *@
+    </div>
+}
+
+@if (Model.Musics.Any())
+{
+    <div class="card mb-2" style="background-color: #bbbbbb;">
+        <div class="card-body">
+            Utwory
+        </div>
     </div>
 }
 
@@ -73,6 +100,15 @@
             </div>
         </a>
         @* <a asp-controller="Basket" asp-action="AddElementToBasket" asp-route-ElementId="@item.Id" asp-route-MediaType="Music" class="btn btn-primary">Dodaj do koszyka</a> *@
+    </div>
+}
+
+@if (Model.Films.Any())
+{
+    <div class="card mb-2" style="background-color: #bbbbbb;">
+        <div class="card-body">
+            Filmy
+        </div>
     </div>
 }
 
