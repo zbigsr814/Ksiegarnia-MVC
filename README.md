@@ -1,3 +1,14 @@
-Projekt strony internetowej wykonanej w ASP.NET MVC, wykorzystano EF. Strona umożliwia przeglądanie książek, audiobooków, piosenek, filmów. Zastosowano CRUD dla edycji elementów, LINQ dla np. wyszukiwania elementów.
+NOTES
+For the site to work, you need to type update-database in the Package Manager Console. The command will create a local database. Database seeding is performed during the first run of the program (https profile) in the BookstoreSeeder file.
 
-Aby strona zadziałała należy w Package Manager Console wpisać update-database. Komenda utworzy lokalną bazę danych. Seedowanie bazy danych wykonuje się podczas pierwszego uruchomienia programu (profil https) w pliku BookstoreSeeder. 
+DESCRIPTION
+A website design made in ASP.NET MVC. The site allows browsing books, audiobooks, songs, movies. We can add selected items to the shopping cart and the shopping cart tab will add selected items. We can remove items from the shopping cart.
+
+DESIGN ELEMENTS
+- CRUD for editing items was used. 
+- Database seeding is done during the first launch of the application.
+- ASP.NET MVC was used
+- LINQ for searching items in the database. 
+- Entity Framework was used
+- Razor pages were used
+- MSSQL database was used
