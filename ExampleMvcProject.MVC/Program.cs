@@ -1,9 +1,9 @@
-
-
 using ExampleMvcProject.MVC.Entities;
 using ExampleMvcProject.MVC.Service;
 using Microsoft.EntityFrameworkCore;
 using ExampleMvcProject.MVC.Interfaces;
+using ExampleMvcProject.MVC.Models;
+using SecondWebApp.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +13,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BookstoreDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("Bookstore")));
 
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("Smtp"));
+
 builder.Services.AddScoped<BookstoreSeeder>();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IVariablesToController, VariablesToController>();
 
 var app = builder.Build();

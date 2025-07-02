@@ -4,20 +4,26 @@ using ExampleMvcProject.MVC.Models;
 using ExampleMvcProject.MVC.Entities;
 using ExampleMvcProject.MVC.Interfaces;
 using ExampleMvcProject.MVC.Service;
+using SecondWebApp.Interfaces;
+using System.Net.Mail;
 
 namespace ExampleMvcProject.MVC.Controllers;
 
 public class HomeController : BaseController
 {
+    private readonly IEmailSender emailSender;
     private BookstoreDbContext _dbContext;
     private readonly ILogger<HomeController> _logger;
     IVariablesToController _variables;
 
-    public HomeController(ILogger<HomeController> logger, BookstoreDbContext dbContext, IVariablesToController variables) : base(variables)
+    public HomeController(ILogger<HomeController> logger, BookstoreDbContext dbContext, IVariablesToController variables, IEmailSender emailSender) 
+        : base(variables)
     {
         _logger = logger;
         _dbContext = dbContext;
         _variables = variables;
+        this.emailSender = emailSender;
+
     }
 
     public IActionResult Index()
@@ -94,6 +100,62 @@ public class HomeController : BaseController
         return View(films);
     }
 
+    public IActionResult Ebooks([FromQuery] string ebookType = "All", [FromQuery] string sorting = "normal")
+    {
+        TempData["ebookType"] = ebookType;
+        TempData["sorting"] = sorting;
+
+        var ebooks = _dbContext.ebooks.ToList();
+
+        // Sortowanie według tytułu w zależności od parametru sorting
+        if (sorting == "desc")
+        {
+            ebooks = ebooks.OrderByDescending(m => m.Title).ToList();  // Sortuj malejąco
+        }
+        else if (sorting == "normal")
+        {
+            ebooks = ebooks.OrderBy(m => m.Title).ToList();  // Sortuj rosnąco (domyślnie)
+        }
+
+        // Zwróć wszystkie książki jeżeli tak wybrano
+        if (ebookType == "All") return View(ebooks);
+
+        //Pobierz dane na podstawie przekazanego musicType
+        ebooks = ebooks
+            .Where(m => m.EbookType == ebookType)
+            .ToList();
+
+        return View(ebooks);
+    }
+
+    public IActionResult Games([FromQuery] string gameType = "All", [FromQuery] string sorting = "normal")
+    {
+        TempData["gameType"] = gameType;
+        TempData["sorting"] = sorting;
+
+        var games = _dbContext.games.ToList();
+
+        // Sortowanie według tytułu w zależności od parametru sorting
+        if (sorting == "desc")
+        {
+            games = games.OrderByDescending(m => m.Title).ToList();  // Sortuj malejąco
+        }
+        else if (sorting == "normal")
+        {
+            games = games.OrderBy(m => m.Title).ToList();  // Sortuj rosnąco (domyślnie)
+        }
+
+        // Zwróć wszystkie gry jeżeli tak wybrano
+        if (gameType == "All") return View(games);
+
+        // Pobierz dane na podstawie przekazanego musicType
+        games = games
+            .Where(m => m.GameType == gameType)
+            .ToList();
+
+        return View(games);
+    }
+
     public IActionResult Search([FromQuery] string searchingText = null)
     {
         var referer = Request.Headers["Referer"].ToString();
@@ -116,6 +178,53 @@ public class HomeController : BaseController
         };
 
         return View(searchedElements);
+    }
+
+    public IActionResult Contact()
+    {
+        EmailModel emailModel = new EmailModel();
+        emailModel.Receiver = "zbigniew.sr@interia.pl";
+        emailModel.Subject = "Spotkanie rekrutacyjne";
+        emailModel.Text = "Z przyjemnością informujemy że firma XYZ pozytywnie rozpatrzyła Pana CV oraz aplikację. Zostaje Pan zaproszony na rozmowę rekrutacyjną," +
+                            " która odbędzie się dnia ABC o godzinie DEF, w miejscu GHI.";
+        return View(emailModel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SendEmail(EmailModel emailModel)
+    {
+        string referer = Request.Headers["Referer"].ToString();
+
+        try
+        {
+            var validEmail = new MailAddress(emailModel.Receiver);
+        }
+        catch (FormatException ex)
+        {
+            TempData["Message"] = "Email nieprawidłowy!";
+            TempData["MessageType"] = "Warning";
+            return Redirect(referer);
+        }
+
+        await emailSender.SendEmailAsync(emailModel.Receiver, emailModel.Subject, emailModel.Text);
+
+        if (!string.IsNullOrEmpty(referer))
+        {
+            TempData["Message"] = "Email został wysłany!";
+            TempData["MessageType"] = "Successful";
+            return Redirect(referer);
+        }
+
+        // fallback jeśli referer jest pusty
+        return RedirectToAction("Index", "Home");
+        return View();
+    }
+
+    public IActionResult Bookstores()
+    {
+        var bookstores = _dbContext.bookstories.ToList();
+
+        return View(bookstores);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

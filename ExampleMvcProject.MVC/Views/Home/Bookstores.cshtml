@@ -1,0 +1,27 @@
+﻿@model List<ExampleMvcProject.MVC.Entities.Bookstore>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Miasto</th>
+            <th>Ulica</th>
+            <th>Numer lokalu</th>
+            <th>Kod pocztowy</th>
+            <th>Godzina otwarcia</th>
+            <th>Godzina zamknięcia</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bookstore in Model)
+        {
+            <tr>
+                <td>@bookstore.City</td>
+                <td>@bookstore.Street</td>
+                <td>@bookstore.StreetNumber</td>
+                <td>@bookstore.PostalCode</td>
+                <td>@bookstore.OpenTime</td>
+                <td>@bookstore.CloseTime</td>
+            </tr>
+        }
+    </tbody>
+</table>

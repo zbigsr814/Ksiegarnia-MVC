@@ -1,5 +1,25 @@
-﻿<h3>MediaItem</h3>
+﻿@using ExampleMvcProject.MVC.Entities;
+
+<div class="card mb-2" style="max-height: 130px;">
+    <a asp-controller="Films" asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none;">
+        <div class="row g-0">
+            <div class="col-md-4" style="max-width: 200px; max-height: 120px;">
+                <img src="@item.ImagePath" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title </h5>
+                    <p class="card-text">@item.Description</p>
+                    <p class="card-text"><small class="text-body-secondary">@item.FilmType</small></p>
+                </div>
+
+            </div>
+        </div>
+    </a>
+    <a asp-controller="Basket" asp-action="AddElementToBasket" asp-route-ElementId="@item.Id" asp-route-MediaType="Film" class="btn btn-primary">Dodaj do koszyka</a>
+</div>
 
 @code {
-
+    [Parameter]
+    public Film item { get; set; }
 }

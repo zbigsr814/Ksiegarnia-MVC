@@ -41,6 +41,27 @@ namespace ExampleMvcProject.MVC.Service
                     _dbContext.films.AddRange(films);
                     _dbContext.SaveChanges();
                 }
+
+                if (!_dbContext.ebooks.Any())
+                {
+                    var ebooks = GetEbooks();
+                    _dbContext.ebooks.AddRange(ebooks);
+                    _dbContext.SaveChanges();
+                }
+
+                if (!_dbContext.games.Any())
+                {
+                    var games = GetGames();
+                    _dbContext.games.AddRange(games);
+                    _dbContext.SaveChanges();
+                }
+
+                if (!_dbContext.bookstories.Any())
+                {
+                    var bookstories = GetBookstories();
+                    _dbContext.bookstories.AddRange(bookstories);
+                    _dbContext.SaveChanges();
+                }
             }
         }
 
@@ -357,6 +378,105 @@ namespace ExampleMvcProject.MVC.Service
             };
 
             return filmList;
+        }
+
+        private IEnumerable<Ebook> GetEbooks()
+        {
+            List<Ebook> ebooksList = new List<Ebook>()
+    {
+        new Ebook { Title = "Historia starożytnego świata", Description = "Podróż przez najważniejsze cywilizacje.", Author = "Anna Kowalczyk", EbookType = "History", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 12 },
+        new Ebook { Title = "Wyprawa do Amazonii", Description = "Przygoda życia w dzikiej dżungli.", Author = "Marcin Lewandowski", EbookType = "Travel", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 15 },
+        new Ebook { Title = "Akcja w cieniu nocy", Description = "Thriller pełen niespodzianek.", Author = "Piotr Nowak", EbookType = "Action", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 9 },
+        new Ebook { Title = "Komedia pomyłek", Description = "Zabawne historie z życia wzięte.", Author = "Ewa Majewska", EbookType = "Comedy", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 14 },
+        new Ebook { Title = "Horror w opuszczonym domu", Description = "Straszna opowieść pełna napięcia.", Author = "Tomasz Król", EbookType = "Horror", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 8 },
+        new Ebook { Title = "Historia średniowiecznej Europy", Description = "Kluczowe wydarzenia i postacie.", Author = "Katarzyna Zielińska", EbookType = "History", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 10 },
+        new Ebook { Title = "Podróże po Azji", Description = "Egzotyczne miejsca i ich tajemnice.", Author = "Adam Wójcik", EbookType = "Travel", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 13 },
+        new Ebook { Title = "Akcja na morzu", Description = "Morskie przygody i niebezpieczeństwa.", Author = "Michał Dąbrowski", EbookType = "Action", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 11 },
+        new Ebook { Title = "Śmiech to zdrowie", Description = "Zbiór humorystycznych opowiadań.", Author = "Joanna Kaczmarek", EbookType = "Comedy", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 12 },
+        new Ebook { Title = "Mroczne legendy", Description = "Straszne historie z różnych stron świata.", Author = "Łukasz Mazur", EbookType = "Horror", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 9 },
+        new Ebook { Title = "Historia Polski w pigułce", Description = "Od czasów Piastów do współczesności.", Author = "Barbara Kowalska", EbookType = "History", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 14 },
+        new Ebook { Title = "Wędrówki po Europie", Description = "Najpiękniejsze trasy i miejsca.", Author = "Piotr Nowakowski", EbookType = "Travel", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 16 },
+        new Ebook { Title = "Akcja i adrenalina", Description = "Opowieści pełne napięcia i akcji.", Author = "Natalia Szymańska", EbookType = "Action", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 10 },
+        new Ebook { Title = "Komedia romantyczna", Description = "Zabawne i wzruszające historie miłosne.", Author = "Marta Wiśniewska", EbookType = "Comedy", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 14 },
+        new Ebook { Title = "Dom strachów", Description = "Przerażające opowieści z nawiedzonego miejsca.", Author = "Andrzej Malinowski", EbookType = "Horror", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 8 },
+        new Ebook { Title = "Historia rewolucji", Description = "Wydarzenia, które zmieniły świat.", Author = "Janusz Kwiatkowski", EbookType = "History", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 11 },
+        new Ebook { Title = "Podróże po Ameryce Południowej", Description = "Przygody na kontynencie pełnym kontrastów.", Author = "Karolina Nowicka", EbookType = "Travel", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 13 },
+        new Ebook { Title = "Akcja w mieście", Description = "Zawrotne tempo i niespodziewane zwroty.", Author = "Dariusz Wrona", EbookType = "Action", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 12 },
+        new Ebook { Title = "Komedia sytuacyjna", Description = "Śmieszne perypetie bohaterów.", Author = "Aneta Grabowska", EbookType = "Comedy", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 15 },
+        new Ebook { Title = "Koszmar na ulicy", Description = "Horror w miejskiej scenerii.", Author = "Marek Błaszczyk", EbookType = "Horror", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 7 },
+        new Ebook { Title = "Historia starożytnego Rzymu", Description = "Od założenia miasta do upadku imperium.", Author = "Ewa Zalewska", EbookType = "History", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 13 },
+        new Ebook { Title = "Wyprawa do Afryki", Description = "Eksploracja dzikich terenów.", Author = "Tomasz Zieliński", EbookType = "Travel", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 14 },
+        new Ebook { Title = "Akcja w dżungli", Description = "Przygody i niebezpieczeństwa tropików.", Author = "Kamil Jankowski", EbookType = "Action", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 9 },
+        new Ebook { Title = "Komedia absurdalna", Description = "Niezwykłe i zabawne sytuacje.", Author = "Monika Lis", EbookType = "Comedy", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 10 },
+        new Ebook { Title = "Horror w lesie", Description = "Przerażające wydarzenia w dzikiej przyrodzie.", Author = "Grzegorz Nowak", EbookType = "Horror", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 11 },
+        new Ebook { Title = "Historia II wojny światowej", Description = "Kluczowe bitwy i wydarzenia.", Author = "Piotr Kaczmarek", EbookType = "History", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 12 },
+        new Ebook { Title = "Podróże po Australii", Description = "Niezapomniane przygody na Antypodach.", Author = "Barbara Wójcik", EbookType = "Travel", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 13 },
+        new Ebook { Title = "Akcja w górach", Description = "Niebezpieczne misje na wysokich szczytach.", Author = "Rafał Kamiński", EbookType = "Action", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 10 },
+        new Ebook { Title = "Komedia kryminalna", Description = "Śmieszne i zaskakujące historie z kryminalnym tłem.", Author = "Kinga Duda", EbookType = "Comedy", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 9 },
+        new Ebook { Title = "Horror w podziemiach", Description = "Mroczne tajemnice i strach pod ziemią.", Author = "Michał Baran", EbookType = "Horror", ImagePath = "/images/ebooks/default-image.jpg", Quantity = 8 }
+
+    };
+
+            return ebooksList;
+        }
+
+        private IEnumerable<Game> GetGames()
+        {
+            List<Game> gamesList = new List<Game>()
+    {
+        new Game { Title = "Lost Temple", Description = "Eksploruj zapomniane ruiny pełne tajemnic.", GameType = "Adventure", ImagePath = "/images/games/default-image.jpg", Quantity = 10 },
+        new Game { Title = "Mind Benders", Description = "Rozwiązuj trudne łamigłówki i ćwicz mózg.", GameType = "Puzzle", ImagePath = "/images/games/default-image.jpg", Quantity = 12 },
+        new Game { Title = "City Tycoon", Description = "Buduj i zarządzaj miastem przyszłości.", GameType = "Simulation", ImagePath = "/images/games/default-image.jpg", Quantity = 15 },
+        new Game { Title = "Dragon Slayer", Description = "Przygoda RPG w świecie smoków i magii.", GameType = "RPG", ImagePath = "/images/games/default-image.jpg", Quantity = 8 },
+        new Game { Title = "Pro Basketball", Description = "Prowadź swoją drużynę do zwycięstwa.", GameType = "Sports", ImagePath = "/images/games/default-image.jpg", Quantity = 14 },
+        new Game { Title = "Turbo Racers", Description = "Szybkie wyścigi samochodowe po torach świata.", GameType = "Racing", ImagePath = "/images/games/default-image.jpg", Quantity = 9 },
+        new Game { Title = "War Strategy", Description = "Dowodź armią i zwyciężaj w bitwach.", GameType = "Strategy", ImagePath = "/images/games/default-image.jpg", Quantity = 11 },
+        new Game { Title = "Jungle Escape", Description = "Ucieknij z dżungli pełnej niebezpieczeństw.", GameType = "Adventure", ImagePath = "/images/games/default-image.jpg", Quantity = 10 },
+        new Game { Title = "Puzzle Master", Description = "Setki unikalnych łamigłówek do rozwiązania.", GameType = "Puzzle", ImagePath = "/images/games/default-image.jpg", Quantity = 7 },
+        new Game { Title = "Farming Simulator", Description = "Prowadź farmę i rozwijaj swoje gospodarstwo.", GameType = "Simulation", ImagePath = "/images/games/default-image.jpg", Quantity = 20 },
+        new Game { Title = "Knight's Quest", Description = "Wciel się w rycerza i pokonaj zło.", GameType = "RPG", ImagePath = "/images/games/default-image.jpg", Quantity = 13 },
+        new Game { Title = "Football Pro", Description = "Symulator piłki nożnej z realistyczną fizyką.", GameType = "Sports", ImagePath = "/images/games/default-image.jpg", Quantity = 16 },
+        new Game { Title = "Speedway", Description = "Ekscytujące wyścigi motocyklowe.", GameType = "Racing", ImagePath = "/images/games/default-image.jpg", Quantity = 8 },
+        new Game { Title = "Empire Builder", Description = "Zbuduj imperium od zera.", GameType = "Strategy", ImagePath = "/images/games/default-image.jpg", Quantity = 14 },
+        new Game { Title = "Island Adventure", Description = "Przygoda na tropikalnej wyspie.", GameType = "Adventure", ImagePath = "/images/games/default-image.jpg", Quantity = 9 },
+        new Game { Title = "Brain Teasers", Description = "Trening umysłu z różnorodnymi zagadkami.", GameType = "Puzzle", ImagePath = "/images/games/default-image.jpg", Quantity = 10 },
+        new Game { Title = "City Life Simulator", Description = "Symuluj życie w wielkim mieście.", GameType = "Simulation", ImagePath = "/images/games/default-image.jpg", Quantity = 18 },
+        new Game { Title = "Shadow RPG", Description = "Wejdź w mroczny świat RPG.", GameType = "RPG", ImagePath = "/images/games/default-image.jpg", Quantity = 12 },
+        new Game { Title = "Tennis Stars", Description = "Gra sportowa dla miłośników tenisa.", GameType = "Sports", ImagePath = "/images/games/default-image.jpg", Quantity = 14 },
+        new Game { Title = "Race Master", Description = "Wyścigi na najwyższym poziomie.", GameType = "Racing", ImagePath = "/images/games/default-image.jpg", Quantity = 11 },
+        new Game { Title = "Battle Command", Description = "Strategiczna walka o dominację.", GameType = "Strategy", ImagePath = "/images/games/default-image.jpg", Quantity = 13 },
+        new Game { Title = "Cave Explorer", Description = "Odkrywaj jaskinie pełne zagadek.", GameType = "Adventure", ImagePath = "/images/games/default-image.jpg", Quantity = 10 },
+        new Game { Title = "Puzzle Planet", Description = "Zagadki i łamigłówki z całego świata.", GameType = "Puzzle", ImagePath = "/images/games/default-image.jpg", Quantity = 9 },
+        new Game { Title = "Airport Simulator", Description = "Zarządzaj ruchem lotniczym.", GameType = "Simulation", ImagePath = "/images/games/default-image.jpg", Quantity = 15 },
+        new Game { Title = "Hero's Journey", Description = "Klasyczne RPG z epicką historią.", GameType = "RPG", ImagePath = "/images/games/default-image.jpg", Quantity = 11 },
+        new Game { Title = "Golf Challenge", Description = "Sportowa gra golfowa z realistyczną grafiką.", GameType = "Sports", ImagePath = "/images/games/default-image.jpg", Quantity = 7 },
+        new Game { Title = "Drift King", Description = "Mistrzowskie driftowanie w wyścigach.", GameType = "Racing", ImagePath = "/images/games/default-image.jpg", Quantity = 10 },
+        new Game { Title = "Kingdom Wars", Description = "Strategiczna walka o tron.", GameType = "Strategy", ImagePath = "/images/games/default-image.jpg", Quantity = 12 },
+        new Game { Title = "Mountain Trek", Description = "Przygoda w górskich szlakach.", GameType = "Adventure", ImagePath = "/images/games/default-image.jpg", Quantity = 8 },
+        new Game { Title = "Logic Lab", Description = "Eksperymentuj z logicznymi łamigłówkami.", GameType = "Puzzle", ImagePath = "/images/games/default-image.jpg", Quantity = 14 }
+
+    };
+
+            return gamesList;
+        }
+
+        private IEnumerable<Bookstore> GetBookstories()
+        {
+            List<Bookstore> bookstoriesList = new List<Bookstore>()
+            {
+                new Bookstore { City = "Warszawa", Street = "Marszałkowska", StreetNumber = "10", PostalCode = "00-590", OpenTime = new TimeSpan(9, 0, 0), CloseTime = new TimeSpan(20, 0, 0) },
+                new Bookstore { City = "Kraków", Street = "Floriańska", StreetNumber = "25", PostalCode = "31-019", OpenTime = new TimeSpan(10, 0, 0), CloseTime = new TimeSpan(19, 0, 0) },
+                new Bookstore { City = "Gdańsk", Street = "Długa", StreetNumber = "12", PostalCode = "80-831", OpenTime = new TimeSpan(9, 30, 0), CloseTime = new TimeSpan(18, 30, 0) },
+                new Bookstore { City = "Wrocław", Street = "Świdnicka", StreetNumber = "42", PostalCode = "50-066", OpenTime = new TimeSpan(8, 0, 0), CloseTime = new TimeSpan(21, 0, 0) },
+                new Bookstore { City = "Poznań", Street = "Półwiejska", StreetNumber = "15", PostalCode = "61-888", OpenTime = new TimeSpan(9, 0, 0), CloseTime = new TimeSpan(20, 0, 0) },
+                new Bookstore { City = "Lublin", Street = "Krakowskie Przedmieście", StreetNumber = "5", PostalCode = "20-076", OpenTime = new TimeSpan(10, 0, 0), CloseTime = new TimeSpan(19, 30, 0) },
+                new Bookstore { City = "Szczecin", Street = "Księcia Bogusława X", StreetNumber = "18", PostalCode = "70-535", OpenTime = new TimeSpan(9, 0, 0), CloseTime = new TimeSpan(17, 0, 0) },
+                new Bookstore { City = "Katowice", Street = "3 Maja", StreetNumber = "20", PostalCode = "40-096", OpenTime = new TimeSpan(9, 30, 0), CloseTime = new TimeSpan(20, 0, 0) },
+                new Bookstore { City = "Białystok", Street = "Lipowa", StreetNumber = "30", PostalCode = "15-427", OpenTime = new TimeSpan(10, 0, 0), CloseTime = new TimeSpan(18, 0, 0) },
+                new Bookstore { City = "Zakopane", Street = "Krupówki", StreetNumber = "1", PostalCode = "34-500", OpenTime = new TimeSpan(9, 0, 0), CloseTime = new TimeSpan(22, 0, 0) }
+            };
+
+            return bookstoriesList;
         }
     }
 }

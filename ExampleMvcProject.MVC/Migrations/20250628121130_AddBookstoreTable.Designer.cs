@@ -4,6 +4,7 @@ using ExampleMvcProject.MVC.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExampleMvcProject.MVC.Migrations
 {
     [DbContext(typeof(BookstoreDbContext))]
-    partial class BookstoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250628121130_AddBookstoreTable")]
+    partial class AddBookstoreTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,41 +150,6 @@ namespace ExampleMvcProject.MVC.Migrations
                     b.ToTable("bookstories");
                 });
 
-            modelBuilder.Entity("ExampleMvcProject.MVC.Entities.Ebook", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EbookType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ebooks");
-                });
-
             modelBuilder.Entity("ExampleMvcProject.MVC.Entities.Film", b =>
                 {
                     b.Property<int>("Id")
@@ -216,36 +184,6 @@ namespace ExampleMvcProject.MVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("films");
-                });
-
-            modelBuilder.Entity("ExampleMvcProject.MVC.Entities.Game", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GameType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("games");
                 });
 
             modelBuilder.Entity("ExampleMvcProject.MVC.Entities.Music", b =>

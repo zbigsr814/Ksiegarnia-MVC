@@ -1,0 +1,45 @@
+﻿@model EmailModel
+
+<br/>
+
+<label class="LabelBoldText">CV twórcy serwisu internetowego</label>
+<iframe src="~/pdf/Zbigniew_Sroczynski_CV_General.pdf" width="100%" height="500px"></iframe>
+
+<br />
+<br />
+<form asp-controller="Home" asp-action="SendEmail" method="post">
+    <label class="LabelBoldText">
+        Wyślij przykładową wiadomość dla Twórcy serwisu internetowego.
+        Odbiorcę wiadomości, tytuł oraz treść emaila można zmienić odpowiednio uzupełniając pola poniżej.
+    </label>
+
+    <br /><br />
+    <label class="LabelBoldText">Odbiorca wiadomości</label>
+<input asp-for="Receiver" class="form-control" placeholder="zbigniew.sr@interia.pl"/>
+
+    <label class="LabelBoldText">Tytuł wiadomości</label>
+<input asp-for="Subject" class="form-control"/>
+
+<br />
+
+<div class="mb-3">
+        <label for="bigTextarea" class="LabelBoldText">Wpisz swoją wiadomość</label>
+    <textarea class="form-control" id="bigTextarea" asp-for="Text" rows="6" placeholder="Witam, /n/nNa podstawie Pana CV jesteśmy zainteresowani współpracą"></textarea>
+</div>
+
+<br/>
+
+    <button type="submit" class="btn btn-primary">Wyślij email</button>
+</form>
+
+@if (TempData["Message"] != null)
+{
+    if (TempData["MessageType"]?.ToString() == "Successful")
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+    else
+    {
+        <div class="alert alert-warning">@TempData["Message"]</div>
+    }
+}

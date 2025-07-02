@@ -12,38 +12,71 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ExampleMvcProject.MVC.styles.css" asp-append-version="true" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow">
             <div class="container-fluid">
+
+                <!-- Lewa strona - logo -->
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Księgarnia</a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <!-- Górne menu: pole wyszukiwania + linki -->
+                <div class="d-flex align-items-center w-100 justify-content-between">
 
-                <!-- Pierwsze poziome menu -->
-                <nav class="navbar bg-body-tertiary">
-                    <div class="container-fluid">
-                        <form class="d-flex" role="search" method="get" asp-controller="Home" asp-action="Search">
-                            <input class="form-control me-2" name="searchingText" type="search" placeholder="Search" aria-label="Search"/>
-                            <button class="btn btn-outline-success" type="submit">Szukaj</button>
-                        </form>
-                    </div>
-                </nav>
+                    <!-- Formularz wyszukiwania -->
+                    <form class="d-flex" role="search" method="get" asp-controller="Home" asp-action="Search">
+                        <input class="form-control me-2" name="searchingText" type="search" placeholder="Szukaj" aria-label="Search" />
+                        <button class="btn btn-outline-success" type="submit">Szukaj</button>
+                    </form>
 
-                <!-- Drugie poziome menu -->
-                <div class="navbar-collapse collapse mt-2">
-                    <!-- Dodana klasa `mt-2` dla odstępu między menu -->
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark @(currentAction == "Index" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    <!-- Linki po prawej: Kontakt, Nasze księgarnie, Konto, Koszyk -->
+                    <ul class="navbar-nav flex-row">
+                        <li class="nav-item px-2">
+                            <a class="nav-link" asp-controller="Home" asp-action="Contact">Kontakt</a>
                         </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" asp-controller="Home" asp-action="Bookstores">Nasze księgarnie</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" asp-controller="Account" asp-action="Index">Konto</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" asp-controller="Basket" asp-action="Show">
+                                Koszyk @ViewBag.variables["basketCount"]
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dolne menu: Książki, Muzyka, Filmy itd -->
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item">
                             <a class="nav-link text-dark @(currentAction == "Books" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Books">Książki</a>
+                        </li>
+                        
+                        <!-- Ebooki z dropdownem -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark @(currentAction == "Ebooks" ? "active" : "")" href="#" id="navbarDropdownMusic" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ebooki
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMusic">
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Ebooks" asp-route-sorting="@TempData["sorting"]" asp-route-EbookType="History">Historia</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Ebooks" asp-route-sorting="@TempData["sorting"]" asp-route-EbookType="Travel">Podróże</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Ebooks" asp-route-sorting="@TempData["sorting"]" asp-route-EbookType="Action">Akcja</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Ebooks" asp-route-sorting="@TempData["sorting"]" asp-route-EbookType="Comedy">Komedia</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Ebooks" asp-route-sorting="@TempData["sorting"]" asp-route-EbookType="Horror">Horror</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Ebooks" asp-route-sorting="@TempData["sorting"]" asp-route-EbookType="All">Wszystkie ebooki</a></li>
+                            </ul>
                         </li>
 
                         <li class="nav-item">
@@ -82,32 +115,31 @@
                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="Thriller">Thriller</a></li>
                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="Komedia">Komedia</a></li>
                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="Wojenny">Wojenny</a></li>
-                                <li><hr class="dropdown-divider"></li>                                                                                   
+                                <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="Films" asp-route-sorting="@TempData["sorting"]" asp-route-FilmType="All">Wszystkie filmy</a></li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Gry i zabawki z dropdownem -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark @(currentAction == "Games" ? "active" : "")" href="#" id="navbarDropdownFilm" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Gry i zabawki
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMusic">
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Games" asp-route-sorting="@TempData["sorting"]" asp-route-GameType="Puzzle">Puzzle</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Games" asp-route-sorting="@TempData["sorting"]" asp-route-GameType="Adventure">Przygodowe</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Games" asp-route-sorting="@TempData["sorting"]" asp-route-GameType="Simulation">Symulacja</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Games" asp-route-sorting="@TempData["sorting"]" asp-route-GameType="RPG">RPG</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Games" asp-route-sorting="@TempData["sorting"]" asp-route-GameType="Sports">Spotr</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Games" asp-route-sorting="@TempData["sorting"]" asp-route-GameType="Racing">Wyścigi</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Games" asp-route-sorting="@TempData["sorting"]" asp-route-GameType="Strategy">Strategia</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Games" asp-route-sorting="@TempData["sorting"]" asp-route-GameType="All">Wszystkie gry i zabawki</a></li>
                             </ul>
                         </li>
 
                     </ul>
                 </div>
-
-
-                <!-- Trzecie poziome menu -->
-                <div class="navbar-collapse collapse mt-2">
-                    <!-- Dodana klasa `mt-2` dla odstępu między menu -->
-                    <ul class="navbar-nav flex-grow-2">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark @(currentAction == "Show" ? "active" : "")" asp-area="" asp-controller="Basket" asp-action="Show">
-                                Koszyk @ViewBag.variables["basketCount"]
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark @(currentAction == "CleanBasket" ? "active" : "")" asp-area="" asp-controller="Basket" asp-action="CleanBasket">Wyczyść koszyk</a>
-                        </li>
-
-                    </ul>
-                </div>
-
-
             </div>
         </nav>
     </header>
@@ -119,14 +151,5 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Księgarnia - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

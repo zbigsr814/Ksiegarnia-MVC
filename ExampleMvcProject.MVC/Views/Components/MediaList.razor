@@ -1,5 +1,11 @@
-﻿<h3>MediaList</h3>
+﻿@using ExampleMvcProject.MVC.Entities;
+
+@foreach (var item in @mediaItems)
+{
+    <MediaItem item="@item"></MediaItem>
+}
 
 @code {
-
+    [Parameter]
+    public List<Film> mediaItems { get; set; }
 }

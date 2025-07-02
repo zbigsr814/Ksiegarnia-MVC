@@ -50,6 +50,11 @@ namespace ExampleMvcProject.MVC.Controllers
                 .Select(b => b.MediaId)
                 .ToList();
 
+            List<int> ebooksId = _dbContext.baskets
+                .Where(b => b.MediaType == "Ebook")
+                .Select(b => b.MediaId)
+                .ToList();
+
             List<int> audiobooksId = _dbContext.baskets
                 .Where(b => b.MediaType == "Audiobook")
                 .Select(b => b.MediaId)
@@ -65,10 +70,18 @@ namespace ExampleMvcProject.MVC.Controllers
                 .Select(b => b.MediaId)
                 .ToList();
 
+            List<int> gamesId = _dbContext.baskets
+                .Where(b => b.MediaType == "Game")
+                .Select(b => b.MediaId)
+                .ToList();
+
             BasketAnyElements basketAnyElements = new BasketAnyElements()
             {
                 Books = _dbContext.books
                     .Where(b => booksId.Contains(b.Id))
+                    .ToList(),
+                Ebooks = _dbContext.ebooks
+                    .Where(b => ebooksId.Contains(b.Id))
                     .ToList(),
                 Audiobooks = _dbContext.audiobooks
                     .Where(b => audiobooksId.Contains(b.Id))
@@ -78,7 +91,10 @@ namespace ExampleMvcProject.MVC.Controllers
                     .ToList(),
                 Films = _dbContext.films
                     .Where(b => filmsId.Contains(b.Id))
-                    .ToList()
+                    .ToList(),
+                Games = _dbContext.games
+                    .Where(b => gamesId.Contains(b.Id))
+                    .ToList(),
 
             };
 
@@ -91,7 +107,7 @@ namespace ExampleMvcProject.MVC.Controllers
             _dbContext.baskets.RemoveRange(allBasketItem);
             _dbContext.SaveChanges();
 
-            var referer = Request.Headers["Referer"];
+            var referer = Request.Headers["Referer"].ToString();
             return Redirect(referer);
         }
     }

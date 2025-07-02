@@ -10,6 +10,9 @@ namespace ExampleMvcProject.MVC.Entities
         public DbSet<Music> musics { get; set; }
         public DbSet<Film> films { get; set; }
         public DbSet<Basket> baskets { get; set; }
+        public DbSet<Ebook> ebooks { get; set; }
+        public DbSet<Game> games { get; set; }
+        public DbSet<Bookstore> bookstories { get; set; }
 
         public BookstoreDbContext(DbContextOptions<BookstoreDbContext> options) : base(options)
         {
