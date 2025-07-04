@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExampleMvcProject.MVC.Entities
 {
-    public class BookstoreDbContext : DbContext
+    public class BookstoreDbContext : IdentityDbContext
     {
         //private string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BookstoreDb;Integrated Security=True;";
         public DbSet<Book> books { get; set; }
@@ -17,6 +18,11 @@ namespace ExampleMvcProject.MVC.Entities
         public BookstoreDbContext(DbContextOptions<BookstoreDbContext> options) : base(options)
         {
             
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

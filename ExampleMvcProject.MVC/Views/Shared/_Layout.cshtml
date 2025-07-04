@@ -39,14 +39,15 @@
                         <li class="nav-item px-2">
                             <a class="nav-link" asp-controller="Home" asp-action="Bookstores">Nasze księgarnie</a>
                         </li>
-                        <li class="nav-item px-2">
-                            <a class="nav-link" asp-controller="Account" asp-action="Index">Konto</a>
-                        </li>
+                        
                         <li class="nav-item px-2">
                             <a class="nav-link" asp-controller="Basket" asp-action="Show">
-                                Koszyk @ViewBag.variables["basketCount"]
+                                Koszyk
                             </a>
                         </li>
+
+                        <partial name="_LoginPartial" />
+
                     </ul>
 
                 </div>
@@ -151,5 +152,6 @@
         </main>
     </div>
 
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

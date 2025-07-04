@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using ExampleMvcProject.MVC.Interfaces;
 using NuGet.Packaging;
+using ExampleMvcProject.ApplicationUser;
 
 namespace ExampleMvcProject.MVC.Controllers
 {
@@ -16,12 +17,15 @@ namespace ExampleMvcProject.MVC.Controllers
         private BookstoreDbContext _dbContext;
         private readonly ILogger<BasketController> _logger;
         IVariablesToController _variables;
+        private readonly IUserContext userContext;
 
-        public BasketController(ILogger<BasketController> logger, BookstoreDbContext dbContext, IVariablesToController variables) : base(variables)
+        public BasketController(ILogger<BasketController> logger, BookstoreDbContext dbContext, IVariablesToController variables, IUserContext userContext) 
+            : base(variables)
         {
             _logger = logger;
             _dbContext = dbContext;
             _variables = variables;
+            this.userContext = userContext;
         }
 
         [HttpGet]
@@ -33,7 +37,8 @@ namespace ExampleMvcProject.MVC.Controllers
             {
                 MediaType = MediaType,
                 Count = 1,
-                MediaId = ElementId
+                MediaId = ElementId,
+                OwnerId = userContext.GetCurrentUser().Id
             };
 
             _dbContext.baskets.Add(newBasketElement);
@@ -46,32 +51,32 @@ namespace ExampleMvcProject.MVC.Controllers
         public IActionResult Show()
         {
             List<int> booksId = _dbContext.baskets
-                .Where(b => b.MediaType == "Book")
+                .Where(b => b.MediaType == "Book" && b.OwnerId == userContext.GetCurrentUser().Id)
                 .Select(b => b.MediaId)
                 .ToList();
 
             List<int> ebooksId = _dbContext.baskets
-                .Where(b => b.MediaType == "Ebook")
+                .Where(b => b.MediaType == "Ebook" && b.OwnerId == userContext.GetCurrentUser().Id)
                 .Select(b => b.MediaId)
                 .ToList();
 
             List<int> audiobooksId = _dbContext.baskets
-                .Where(b => b.MediaType == "Audiobook")
+                .Where(b => b.MediaType == "Audiobook" && b.OwnerId == userContext.GetCurrentUser().Id)
                 .Select(b => b.MediaId)
                 .ToList();
 
             List<int> musicId = _dbContext.baskets
-                .Where(b => b.MediaType == "Music")
+                .Where(b => b.MediaType == "Music" && b.OwnerId == userContext.GetCurrentUser().Id)
                 .Select(b => b.MediaId)
                 .ToList();
 
             List<int> filmsId = _dbContext.baskets
-                .Where(b => b.MediaType == "Film")
+                .Where(b => b.MediaType == "Film" && b.OwnerId == userContext.GetCurrentUser().Id)
                 .Select(b => b.MediaId)
                 .ToList();
 
             List<int> gamesId = _dbContext.baskets
-                .Where(b => b.MediaType == "Game")
+                .Where(b => b.MediaType == "Game" && b.OwnerId == userContext.GetCurrentUser().Id)
                 .Select(b => b.MediaId)
                 .ToList();
 

@@ -6,6 +6,7 @@ using ExampleMvcProject.MVC.Interfaces;
 using ExampleMvcProject.MVC.Service;
 using SecondWebApp.Interfaces;
 using System.Net.Mail;
+using ExampleMvcProject.ApplicationUser;
 
 namespace ExampleMvcProject.MVC.Controllers;
 
@@ -23,7 +24,6 @@ public class HomeController : BaseController
         _dbContext = dbContext;
         _variables = variables;
         this.emailSender = emailSender;
-
     }
 
     public IActionResult Index()
