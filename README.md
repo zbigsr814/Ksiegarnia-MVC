@@ -1,6 +1,10 @@
+APPLICATION SCREENS
+
+For a quick overview of my project, I recommend reviewing the screenshots in the Application screens folder
+
 NOTES
 
-For the site to work, you need to type update-database in the Package Manager Console. The command will create a local database. Database seeding is performed during the first run of the program (https profile) in the BookstoreSeeder file.
+We have to download the project first and use Visual Stusdio. For the site to work, you need to type update-database in the Package Manager Console. The command will create a local database. Database seeding is performed during the first run of the program (https profile) in the BookstoreSeeder file.
 
 DESCRIPTION
 
